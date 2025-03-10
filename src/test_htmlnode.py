@@ -1,6 +1,7 @@
 import unittest
 
 from htmlnode import *
+from leafnode import *
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -58,6 +59,36 @@ class TestHTMLNode(unittest.TestCase):
         self.assertIn("p", repr(node))
         self.assertIn("text", repr(node))
         self.assertIn("bold", repr(node))
+
+    # unit test for leafnode.py
+    def test_leaf_to_html_no_tag(self):
+        node = LeafNode(None, "Just some text")
+        self.assertEqual(node.to_html(), "Just some text")
+
+    def test_leaf_to_html_no_value(self):
+        node = LeafNode("p", None)
+        with self.assertRaises(ValueError):
+            node.to_html()
+
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_leaf_to_html_with_attributes(self):
+        node = LeafNode(
+            "a", "Click me!", {"href": "https://boot.dev", "class": "button"}
+        )
+        self.assertIn('href="https://boot.dev"', node.to_html())
+        self.assertIn('class="button"', node.to_html())
+        self.assertIn(">Click me!</a>", node.to_html())
+
+    def test_leaf_to_html_img(self):
+        node = LeafNode("img", "", {"src": "image.jpg", "alt": "An image"})
+        html = node.to_html()
+        self.assertIn('src="image.jpg"', html)
+        self.assertIn('alt="An image"', html)
+        self.assertIn("<img", html)
+        self.assertIn("></img>", html)
 
 
 if __name__ == "__main__":
