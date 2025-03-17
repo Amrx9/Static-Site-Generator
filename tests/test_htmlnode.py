@@ -1,10 +1,10 @@
 import unittest
 
-from htmlnode import *
-from leafnode import *
-from parentnode import *
-from converters import *
-
+from src.htmlnode import *
+from src.leafnode import *
+from src.parentnode import *
+from src.converters import *
+from src.textnode import *
 
 class TestHTMLNode(unittest.TestCase):
     def test_init_values(self):

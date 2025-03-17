@@ -1,6 +1,6 @@
-from htmlnode import *
-from textnode import *
-from leafnode import *
+from src.htmlnode import *
+from src.textnode import *
+from src.leafnode import *
 
 def text_node_to_html_node(text_node):
     match text_node.text_type:
